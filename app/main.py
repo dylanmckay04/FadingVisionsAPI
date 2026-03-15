@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.models import user
 from app.routers import auth, galleries
@@ -21,6 +22,14 @@ wait_for_db()
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Fading Visions API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
