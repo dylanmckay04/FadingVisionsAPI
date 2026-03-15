@@ -25,7 +25,7 @@ app = FastAPI(title="Fading Visions API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://fadingvisions-api.vercel.app"],
+    allow_origins=["http://localhost:5173", "https://fadingvisions.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
