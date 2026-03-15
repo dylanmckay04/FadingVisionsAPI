@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from app.database import Base, engine
 from app.models import user
-from app.routers import auth
+from app.routers import auth, galleries
 import time
 import sqlalchemy
 
@@ -30,6 +30,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 app.include_router(auth.router)
+app.include_router(galleries.router)
 
 @app.get("/health")
 def health():
