@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
-from app.models import user
 from app.routers import auth, galleries
 import time
 import sqlalchemy
