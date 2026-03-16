@@ -35,7 +35,8 @@
 <h2>How to run <em>Fading Visions</em> locally</h2>
 <ol>
     <li>Open a terminal and clone the Git repository by running <code>git clone https://github.com/dylanmckay04/FadingVisionsAPI.git</code></li>
-    <li>Change directory to <code>/fadingvisionsapi</code> using <code>cd fadingvisionsapi</code>, then create a <code>.env</code> file and add the necessary environment variables (<a href="#env">see section below</a>)</li>
+    <li>Change directory to <code>/fadingvisionsapi</code> using <code>cd fadingvisionsapi</code></li>
+    <li>Create a <code>.env</code> file inside <code>/fadingvisionsapi</code> and add the necessary environment variables (<a href="#env">see section below</a>)</li>
     <li>Ensure <a href="https://www.docker.com/" target="_blank">Docker</a> is running and then run <code>docker compose up --build</code></li>
     <li>Go to <a href="http://localhost:8000/health" target="_blank">http://localhost:8000/health</a> in your browser and you should see <code>{"status": "ok"}</code> - afterwards go to <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
     <li>Now that the backend is running, open a second terminal for the frontend server</li>
