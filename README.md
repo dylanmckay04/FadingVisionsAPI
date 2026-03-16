@@ -34,9 +34,9 @@
 <p>A join table was used to model the many-to-many relationship between galleries and photos rather than storing them in an array. This has referential integrity through foreign key constraints, which enables efficient queries in both directions, and follows database normalization principles. Doing this also means a photo only needs to be stored once in the database even if multiple users save it to their galleries.</p>
 <h2>How to run <em>Fading Visions</em> locally</h2>
 <ol>
-    <li>Clone the Git repository by running <code>git clone https://github.com/dylanmckay04/FadingVisionsAPI.git</code></li>
+    <li>Open a terminal and clone the Git repository by running <code>git clone https://github.com/dylanmckay04/FadingVisionsAPI.git</code></li>
     <li>Create a <code>.env</code> file and add the necessary environment variables (<a href="#env">see section below</a>)</li>
-    <li>Ensure <a href="https://www.docker.com/" target="_blank">Docker</a> is running, open a terminal and change directory to <code>/fadingvisionsapi</code>, then run <code>docker compose up --build</code></li>
+    <li>Ensure <a href="https://www.docker.com/" target="_blank">Docker</a> is running and change directory to <code>/fadingvisionsapi</code>, then run <code>docker compose up --build</code></li>
     <li>Go to <a href="http://localhost:8000/health" target="_blank">http://localhost:8000/health</a> in your browser and you should see <code>{"status": "ok"}</code> - afterwards go to <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
     <li>Now that the backend is running, open a second terminal for the frontend server</li>
     <li>Change directory to <code>/frontend</code> using <code>cd frontend</code></li>
