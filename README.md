@@ -20,17 +20,54 @@
     <li>bcrypt-sha256 password encryption</li>
     <li>Data validation with <a href="https://docs.pydantic.dev/latest/" target="_blank">Pydantic</a></li>
     <li>Frontend server running on <a href="https://nginx.org/" target="_blank">nginx</a></li>
-    <li><a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a> for ORM interaction with <a href="https://www.postgresql.org/" target="_blank">Postgres</a></li>
+    <li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> database</li>
+    <li><a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a> for ORM interaction</li>
     <li><a href="https://unsplash.com/developers" target="_blank">Unsplash API</a> service</li>
 </ul>
 <h2>Technical Decisions</h2>
-<h2>Why FastAPI over something like Flask?</h2>
-<p>FastAPI was chosen because of its high performance, pleasant developer exeperience, and its ability to produce modern production-grade code. Flask is a lightweight framework, and does not include certain features required for this type of application such as ORM, form validation, and compatabilty with asynchonous requests.</p> 
-<h2>Why PostgreSQL over SQLite?</h2>
+<h3>Why FastAPI over something like Flask?</h3>
+<p>FastAPI was chosen because of its high performance, pleasant developer exeperience, and its ability to produce modern production-grade code. Flask is a lightweight framework, and does not include certain features required for this type of application such as ORM management, form validation, and compatabilty with asynchonous requests.</p> 
+<h3>Why PostgreSQL over SQLite?</h3>
 <p>PostgreSQL was chosen because this is the standard for modern full-stack applications. SQLite is a simple database engine where the database is stored in a single file, while PostgreSQL is a complete object-relation database system. PostgreSQl's supported features (data types, concurrency, relaibilty, security) align well with the needs of a robust API.</p>
-<h2>Why use a join table to store photo IDs instead of using a list?</h2>
+<h3>Why use a join table to store photo IDs instead of using a list?</h3>
 <p>A join table was used to model the many-to-many relationship between galleries and photos rather that storing them in an array. This has referential integrity through foreign key constraints, which enables efficient queries in both directions, and follows database normalization principles. Doing this also means a photo only needs to be stored once in the database even if multiple users save it to their galleries.</p>
 <h2>How to run <em>Fading Visions</em> locally</h2>
 <ol>
-    <li></li>
+    <li>Clone the Git repository by running <code>git clone https://github.com/dylanmckay04/FadingVisionsAPI.git</code></li>
+    <li>Create a <code>.env</code> file and add the necessary environment variables (<a href="#env">see section below</a>)</li>
+    <li>Ensure <a href="https://www.docker.com/" target="_blank">Docker</a> is running and change directiory to <code>/fadingvisionsapi</code>, then run <code>docker compose up --build</code></li>
+    <li>Go to <a href="http://localhost:8000/health" target="_blank">http://localhost:8000/health</a> in your browser and you should see <code>{"status": "ok"}</code> - afterwards go to <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
+    <li>Now that the backend is running, open a second terminal for the frontend server</li>
+    <li>Change directory to <code>/frontend</code> using <code>cd frontend</code></li>
+    <li>Enter <code>npm run dev</code> in the terminal and the frontend should start running at <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></li>
+    <li>Visit <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> in your web browser to try out <em>Fading Visions</em>!</li>
 </ol>
+<h2 id="env">Environment Variables</h2>
+<ol>
+    <li><strong>DATABASE_URL</strong> - ex. <code>postgresql://postgres:postgres@localhost:5433/fadingvisionsdb</code> (ensure DB exists & name matches)</li>
+    <li><strong>SECRET_KEY</strong> - create a secure token using something like <code>import secrets;secrets.token_urlsafe(32)</code> - used to encode/decode auth tokens</li>
+    <li><strong>UNSPLASH_ACCESS_KEY</strong> - procure from <a href="https://unsplash.com/developers" target="_blank">Unsplash Developers</a> - create an app and scroll down to the "🔑Keys" section</li>
+</ol>
+<h2>API Endpoints</h2>
+<a>Interactive documentation is available at the live API: <a href="https://fadingvisionsapi-production.up.railway.app/docs" target="_blank">https://fadingvisionsapi-production.up.railway.app/docs</a></a>
+
+### Authentication
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | /auth/register | Create a new user account | No |
+| POST | /auth/login | Login and receive a JWT token | No |
+| GET | /auth/me | Get the current authenticated user | Yes |
+
+### Galleries
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | /galleries | Create a new gallery | Yes |
+| GET | /galleries | Get all galleries for current user | Yes |
+| GET | /galleries/{id} | Get a single gallery with its photos | Yes |
+| DELETE | /galleries/{id} | Delete a gallery | Yes |
+
+### Photos
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | /galleries/{id}/photos/search | Search Unsplash and add photos to gallery | Yes |
+| DELETE | /galleries/{id}/photos/{photo_id} | Remove a photo from a gallery | Yes |
