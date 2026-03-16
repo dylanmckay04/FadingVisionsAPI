@@ -38,7 +38,7 @@
     <li>Change directory to <code>/fadingvisionsapi</code> using <code>cd fadingvisionsapi</code></li>
     <li>Create a <code>.env</code> file inside <code>/fadingvisionsapi</code> and add the necessary environment variables (<a href="#env">see section below</a>)</li>
     <li>Ensure <a href="https://www.docker.com/" target="_blank">Docker</a> is running and then run <code>docker compose up --build</code></li>
-    <li>Go to <a href="http://localhost:8000/health" target="_blank">http://localhost:8000/health</a> in your browser and you should see <code>{"status": "ok"}</code> - afterwards go to <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
+    <li>Go to <a href="http://localhost:8000/health" target="_blank">http://localhost:8000/health</a> in your browser and you should see <code>{"status": "ok"}</code> - afterwards go to <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a> to see the Swagger/OpenAPI documentation</li>
     <li>Now that the backend is running, open a second terminal for the frontend server</li>
     <li>Change directory to <code>/frontend</code> using <code>cd frontend</code></li>
     <li>Enter <code>npm run dev</code> in the terminal and the frontend should start running at <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></li>
